@@ -45,6 +45,15 @@ if !hasmapto('<Plug>ColorstepReload')
     nmap <unique> <S-F7> <Plug>ColorstepReload
 endif
 
-nmap <unique> <Plug>ColorstepNext :call StepColorNext()<CR>
-nmap <unique> <Plug>ColorstepPrev :call StepColorPrev()<CR>
-nmap <unique> <Plug>ColorstepReload :call LoadColors()<CR>
+try
+    nmap <unique> <Plug>ColorstepNext :call StepColorNext()<CR>
+catch /^Vim\%((\a\+)\)\=:E227/  " already mapped, e.g. user created their own
+endtry          "+version or (much more likely) this script was sourced before
+try
+    nmap <unique> <Plug>ColorstepPrev :call StepColorPrev()<CR>
+catch /^Vim\%((\a\+)\)\=:E227/  " already mapped, e.g. user created their own
+endtry          "+version or (much more likely) this script was sourced before
+try
+    nmap <unique> <Plug>ColorstepReload :call LoadColors()<CR>
+catch /^Vim\%((\a\+)\)\=:E227/  " already mapped, e.g. user created their own
+endtry          "+version or (much more likely) this script was sourced before
